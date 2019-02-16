@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00FFFF"
     >
+
 
     <TextView
         android:id="@+id/statusText"
@@ -18,38 +20,42 @@
 
     <EditText
         android:id="@+id/phoneText"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Phone number"
         android:inputType="phone"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/sendButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusText" />
 
     <Button
         android:id="@+id/sendButton"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="194dp"
+        android:layout_height="48dp"
         android:onClick="sendCode"
         android:text="Send Code"
         app:layout_constraintBottom_toTopOf="@+id/resendButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneText"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <Button
         android:id="@+id/resendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="191dp"
+        android:layout_height="48dp"
         android:onClick="resendCode"
         android:text="Resend Code"
         app:layout_constraintBottom_toTopOf="@+id/codeText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendButton" />
+        app:layout_constraintTop_toBottomOf="@+id/sendButton"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <EditText
         android:id="@+id/codeText"
@@ -65,17 +71,20 @@
 
     <Button
         android:id="@+id/verifyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
         android:onClick="verifyCode"
         android:text="Verify Code"
         app:layout_constraintBottom_toTopOf="@+id/signoutButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeText" />
+        app:layout_constraintTop_toBottomOf="@+id/codeText"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <Button
         android:id="@+id/signoutButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="signOut"
@@ -84,4 +93,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyButton" />
+
+
 </android.support.constraint.ConstraintLayout>
