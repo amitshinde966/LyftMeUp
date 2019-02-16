@@ -13,7 +13,7 @@
         android:layout_marginTop="112dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Aadhar no" />
+        android:hint="Aadhar no" />
 
     <EditText
         android:id="@+id/textname"
@@ -25,14 +25,37 @@
         android:layout_marginTop="47dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Name" />
+
+    <EditText
+        android:id="@+id/textsex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Gender"
+        android:layout_below="@+id/textaadhar"
+        android:layout_alignStart="@+id/textaadhar"
+        android:layout_marginTop="46dp" />
+
+    <EditText
+        android:id="@+id/textphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Phone No"
+        android:layout_below="@+id/textsex"
+        android:layout_alignStart="@+id/textaadhar"
+        android:layout_marginTop="38dp" />
 
     <Button
         android:id="@+id/btnsubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textaadhar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="Submit" />
+        android:text="Submit"
+        android:layout_below="@+id/textphone"
+        android:layout_alignStart="@+id/textphone"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="47dp" />
 </RelativeLayout>

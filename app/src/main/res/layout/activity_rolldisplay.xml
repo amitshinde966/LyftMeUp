@@ -8,8 +8,9 @@
         android:layout_height="87dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        android:layout_above="@+id/txtgen"
+       android:hint="Name"
+        android:editable="false"
+        android:layout_above="@+id/txtsex"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="30dp" />
 
@@ -17,12 +18,13 @@
         android:id="@+id/txtphone"
         android:layout_width="276dp"
         android:layout_height="44dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="phone Number"
         android:layout_above="@+id/txtname"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:editable="false"
+        android:hint="phone Number"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/txtaadhar"
@@ -30,18 +32,20 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Aadhar No"
+        android:hint="Aadhar No"
+        android:editable="false"
         android:layout_above="@+id/btnuser"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="81dp" />
 
     <EditText
-        android:id="@+id/txtgen"
+        android:id="@+id/txtsex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Gender"
+        android:hint="Gender"
+        android:editable="false"
         android:layout_above="@+id/txtaadhar"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="30dp" />
@@ -64,4 +68,12 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/txtaadhar"
         android:layout_marginBottom="63dp" />
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sign_out" />
 </RelativeLayout>
