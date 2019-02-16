@@ -1,5 +1,6 @@
 package com.lyft.lyftmeup;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,8 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference databaseReference;
     private EditText name;
     private EditText aadharcard;
+    private EditText sex;
+    private EditText phone;
     private Button submit;
 
 
@@ -33,6 +36,8 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
 
         name = findViewById(R.id.textname);
         aadharcard = findViewById(R.id.textaadhar);
+        sex = findViewById(R.id.textsex);
+        phone = findViewById(R.id.textphone);
         submit = findViewById(R.id.btnsubmit);
 
         submit.setOnClickListener(this);
@@ -52,15 +57,19 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
 
              String n = name.getText().toString();
                String a = aadharcard.getText().toString();
+                String p = phone.getText().toString();
+                String s = sex.getText().toString();
+
 
 
                databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-               UserData udata = new UserData(n, a);
+               UserData udata = new UserData(n, a,s,p);
 
                 databaseReference.child(fUser.getUid().toString()).setValue(udata);
                 Toast.makeText(this,"User Info Added", Toast.LENGTH_LONG).show();
-
+                startActivity(new Intent(adddata.this,rolldisplay.class));
+                finish();
                 break;
 
 
@@ -72,9 +81,13 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
 class UserData{
     String userName;
     String userAadhar;
-    public UserData(String name,String aadhar)
+    String userSex;
+    String userPhone;
+    public UserData(String name,String aadhar,String sex,String phone)
     {
         this.userName=name;
         this.userAadhar=aadhar;
+        this.userSex=sex;
+        this.userPhone=phone;
     }
 }
