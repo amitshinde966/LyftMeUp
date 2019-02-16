@@ -1,23 +1,19 @@
 package com.lyft.lyftmeup;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
 
 public class rolldisplay extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,16 +33,23 @@ public class rolldisplay extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rolldisplay);
 
-         name = findViewById(R.id.txtname);
-        phoneno = findViewById(R.id.txtphone);
-        aadhar = findViewById(R.id.txtaadhar);
-        sex = findViewById(R.id.txtsex);
-        user= findViewById(R.id.btnuser);
-        rider=findViewById(R.id.btnrider);
+         name = (EditText) findViewById(R.id.txtname);
+        phoneno = (EditText) findViewById(R.id.txtphone);
+        aadhar = (EditText) findViewById(R.id.txtaadhar);
+        sex = (EditText) findViewById(R.id.txtsex);
+        user= (Button) findViewById(R.id.btnuser);
+        rider= (Button) findViewById(R.id.btnrider);
 
-        user.setOnClickListener(this);
-        rider.setOnClickListener(this);
-        signot=findViewById(R.id.signout);
+        rider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(rolldisplay.this, DriverMapActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        signot= (Button) findViewById(R.id.signout);
         signot.setOnClickListener(this);
 
 
