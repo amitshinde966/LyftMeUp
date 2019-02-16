@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lyft.lyftmeup.splash"
-    android:background="#00FFFF">
+    android:background="@color/background">
 
 
 </android.support.constraint.ConstraintLayout>
