@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">LyftMeUp</string>
+
+
+    <string name="usernameReg">Username</string>
+    <string name="emailReg">Phone Number</string>
+    <string name="passwordReg">OTP</string>
+    <string name="sign_upReg">Sign up</string>
+    <string name="sign_inLog">Login</string>
+    <string name="sign_inotp">Send OTP</string>
+    <string name="signin_redirect">Already a member? Sign in!</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="signup_redirect">Don\'t have an account? Register here!</string>
+
+    <string name="sign_out">Sign Out</string>
+    <string name="hint_phone_number">Enter Phone Number</string>
+    <string name="hint_verification_code">Verification Code</string>
+    <string name="start_phone_auth">Start</string>
+    <string name="verify_phone_auth">Verify</string>
+    <string name="resend_phone_auth">Resend</string>
+    <string name="title_activity_chooserole">chooserole</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
