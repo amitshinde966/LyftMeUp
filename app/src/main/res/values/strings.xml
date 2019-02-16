@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LyftMeUp</string>
+    <string name="title_activity_near_me">Map</string>
 </resources>

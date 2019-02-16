@@ -6,23 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class OTP extends AppCompatActivity {
 
-    Button next;
+    Button bt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        next = (Button)findViewById(R.id.next);
+        setContentView(R.layout.activity_otp);
+        bt = (Button)findViewById(R.id.Verify);
 
-        next.setOnClickListener(new View.OnClickListener() {
+        bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i= new Intent(getApplicationContext(),(OTP.class));
+                Intent i = new Intent(getApplicationContext(),Messenger.class);
                 startActivity(i);
             }
         });
     }
-
-
 }
