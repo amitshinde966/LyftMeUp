@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#00FFFF">
 
     <EditText
         android:id="@+id/txtname"
@@ -10,21 +11,22 @@
         android:inputType="textPersonName"
        android:hint="Name"
         android:editable="false"
-        android:layout_above="@+id/txtsex"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/txtphone"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/txtphone"
         android:layout_width="276dp"
         android:layout_height="44dp"
-        android:layout_above="@+id/txtname"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp"
         android:ems="10"
         android:editable="false"
         android:hint="phone Number"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginTop="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtname" />
 
     <EditText
         android:id="@+id/txtaadhar"
@@ -34,9 +36,9 @@
         android:inputType="textPersonName"
         android:hint="Aadhar No"
         android:editable="false"
-        android:layout_above="@+id/btnuser"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="81dp" />
+        android:layout_below="@+id/txtsex"
+        android:layout_alignStart="@+id/txtsex"
+        android:layout_marginTop="18dp" />
 
     <EditText
         android:id="@+id/txtsex"
@@ -46,31 +48,33 @@
         android:inputType="textPersonName"
         android:hint="Gender"
         android:editable="false"
-        android:layout_above="@+id/txtaadhar"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_below="@+id/txtname"
+        android:layout_alignStart="@+id/txtname" />
 
     <Button
         android:id="@+id/btnuser"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:text="User"
         android:layout_alignBaseline="@+id/btnrider"
         android:layout_alignBottom="@+id/btnrider"
-        android:layout_toStartOf="@+id/btnrider"
-        android:layout_marginEnd="44dp" />
+        android:layout_alignStart="@+id/txtaadhar"
+        android:text="User" />
 
     <Button
         android:id="@+id/btnrider"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:text="Rider"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/txtaadhar"
-        android:layout_marginBottom="63dp" />
+        android:layout_above="@+id/signout"
+        android:layout_alignEnd="@+id/txtphone"
+        android:layout_marginBottom="18dp"
+        android:layout_marginEnd="10dp"
+        android:text="Rider" />
 
     <Button
         android:id="@+id/signout"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#00FFFF">
 
 
     <EditText
@@ -24,8 +25,8 @@
         android:layout_marginStart="71dp"
         android:layout_marginTop="47dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/textsex"
@@ -51,11 +52,12 @@
 
     <Button
         android:id="@+id/btnsubmit"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_below="@+id/textphone"
         android:layout_alignStart="@+id/textphone"
+        android:layout_below="@+id/textphone"
         android:layout_marginStart="62dp"
-        android:layout_marginTop="47dp" />
+        android:layout_marginTop="47dp"
+        android:text="Submit" />
 </RelativeLayout>
