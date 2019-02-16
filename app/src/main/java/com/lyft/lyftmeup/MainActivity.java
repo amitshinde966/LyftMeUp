@@ -209,9 +209,13 @@ fbAuth.addAuthStateListener(mAuth);
 
         switch (view.getId()) {
             case R.id.sendButton:
-
+                if(phoneText.length() != 10)
+                {
+                    Toast.makeText(this,"Invalid Phone Number", Toast.LENGTH_LONG).show();
+                }
+else{
                 sendCode();
-                break;
+                break;}
             case R.id.resendButton:
 
                 resendCode();

@@ -60,6 +60,18 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
                 String p = phone.getText().toString();
                 String s = sex.getText().toString();
 
+                if(p.length() != 10)
+                {
+                    Toast.makeText(this,"Invalid Phone Number", Toast.LENGTH_LONG).show();
+                }
+                else if(a.length() != 12)
+                {
+                    Toast.makeText(this,"Invalid Aadhar Number", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+
+
 
 
                databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -71,6 +83,7 @@ public class adddata extends AppCompatActivity implements View.OnClickListener {
                 startActivity(new Intent(adddata.this,rolldisplay.class));
                 finish();
                 break;
+                }
 
 
         }
