@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,8 +52,8 @@ import java.util.Map;
 
 public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-    static int count1=1;
-    static Map<String, Float> colorList = new HashMap<String , Float>();
+    static float a = 50.0f;
+    static Map<String, Float> colorList = new HashMap<String, Float>();
     private static LatLng sourceLatLng, destinationLatLng;
     private static final int LOCATION_REQUEST_CODE = 990;
     private GoogleMap mMap;
@@ -142,13 +144,11 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public void onLocationChanged(Location location) {
-        if(getApplicationContext() != null) {
+        if (getApplicationContext() != null) {
             sourceLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sourceLatLng));
         }
     }
-
-
 
 
     public void onMapReady(GoogleMap googleMap) {
@@ -158,6 +158,28 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             return;
         }
         mMap.setMyLocationEnabled(true);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                if(marker==null)
+                    return true;
+                ((Button) findViewById(R.id.call)).setVisibility(View.VISIBLE);
+                ((Button) findViewById(R.id.call)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + mob));
+                        if (ActivityCompat.checkSelfPermission(DriverMapActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+                        }
+                        startActivity(callIntent);
+                    }
+                });
+
+
+                return false;
+            }
+        });
         buildGoogleApiClient();
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -173,9 +195,13 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                         e.printStackTrace();
                     }
                     if (addresses != null) {
-                        String areaName = addresses.get(0).getLocality();
-                        String cityName = addresses.get(0).getAddressLine(0);
-                        ((EditText) findViewById(R.id.whereTo)).setText(areaName + " " + cityName);
+                        try {
+                            String areaName = addresses.get(0).getLocality();
+                            String cityName = addresses.get(0).getAddressLine(0);
+                            ((EditText) findViewById(R.id.whereTo)).setText(areaName + " " + cityName);
+                        }catch (Exception e){
+
+                        }
                     }
 
                     ((Button) findViewById(R.id.doneSelection)).setVisibility(View.VISIBLE);
@@ -219,11 +245,11 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     void findDriversNearBy(LatLng sourceLatLng, LatLng destinationLatLng){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("id", userId);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DriverRequest/"+userId);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RiderRequestSource");
 
 
         GeoFire geoFire = new GeoFire(ref);
-        geoFire.setLocation("source", new GeoLocation(sourceLatLng.latitude, sourceLatLng.longitude), new GeoFire.CompletionListener() {
+        geoFire.setLocation(userId, new GeoLocation(sourceLatLng.latitude, sourceLatLng.longitude), new GeoFire.CompletionListener() {
             @Override
             public void onComplete(String key, DatabaseError error) {
                 if (error != null) {
@@ -234,7 +260,9 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        geoFire.setLocation("destination", new GeoLocation(destinationLatLng.latitude, destinationLatLng.longitude), new GeoFire.CompletionListener() {
+        ref = FirebaseDatabase.getInstance().getReference("RiderRequestDestination");
+        geoFire = new GeoFire(ref);
+        geoFire.setLocation(userId, new GeoLocation(destinationLatLng.latitude, destinationLatLng.longitude), new GeoFire.CompletionListener() {
             @Override
             public void onComplete(String key, DatabaseError error) {
                 if (error != null) {
@@ -245,8 +273,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        final DatabaseReference workerLocation = FirebaseDatabase.getInstance().getReference().child("RiderRequest");
-        geoFire = new GeoFire(workerLocation);
+        final DatabaseReference userLocation = FirebaseDatabase.getInstance().getReference().child("UserRequestSource");
+        geoFire = new GeoFire(userLocation);
         GeoQuery geoQuery1;
         geoQuery1 = geoFire.queryAtLocation(new GeoLocation(sourceLatLng.latitude, sourceLatLng.longitude), 5);
         geoQuery1.removeAllListeners();
@@ -255,7 +283,10 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
+                //Log.d("user key: ", key);
                 if(key!= null){
+                    Log.d("user key: ", key);
+                    System.out.println("Key: " + key);
                     displayUser(key);
                 }
             }
@@ -282,8 +313,25 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
+    static String mob;
     void displayUser(final String key){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("UserRequest").child(key).child("source").child("l");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(key).child("userPhone");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mob = dataSnapshot.getValue().toString();
+                System.out.println("wds: " + mob);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ref = null;
+
+        ref = FirebaseDatabase.getInstance().getReference().child("UserRequestSource").child(key).child("l");
         ref.addChildEventListener(new ChildEventListener() {
             Marker m1;
             List<String> location = new ArrayList<String>();
@@ -302,9 +350,14 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                             locationLong = Double.parseDouble(location.get(1).toString());
                         }
                         LatLng workerLatLng = new LatLng(locationLat, locationLong);
-                        m1 = mMap.addMarker(new MarkerOptions().alpha(12*count1).position(workerLatLng).title("User Source Location"));
-                        colorList.put(key, 12.0f * count1);
+
+                        m1 = mMap.addMarker(new MarkerOptions().alpha(a*2).position(workerLatLng).title("User Source Location"));
+                        colorList.put(key, a * 2);
+                        a = a*2;
+                        m1.setTag(mob);
+                        System.out.println("wds  2 : " + mob);
                     }
+
                 }
             }
 
@@ -329,7 +382,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child("UserRequest").child(key).child("destination").child("l");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child("UserRequestDestination").child(key).child("l");
         ref1.addChildEventListener(new ChildEventListener() {
             Marker m1;
             List<String> location = new ArrayList<String>();
