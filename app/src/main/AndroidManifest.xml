@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".splash" />
+        <activity android:name=".adddata" />
+        <activity
+            android:name=".chooserole"
+            android:label="@string/title_activity_chooserole"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".rolldisplay"></activity>
     </application>
 
 </manifest>
